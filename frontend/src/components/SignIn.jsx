@@ -32,7 +32,9 @@ const SignIn = () => {
       }
     } catch (error) {
       console.error("Signin error:", error);
-      alert("Network error: " + (error.response?.data?.message || error.message));
+      alert(
+        "Network error: " + (error.response?.data?.message || error.message)
+      );
     }
   };
 
