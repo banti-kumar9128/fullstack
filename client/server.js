@@ -16,8 +16,11 @@ const PORT=process.env.PORT ||4500
 app.use("/api",router)
 
 
-app.listen(PORT,(req,res)=>{
-    connecDB()
+connecDB()
+
+app.listen(PORT, (req, res) => {
     console.log(`server is running on http://localhost:${PORT}`)
 })
+
+export default app
 
