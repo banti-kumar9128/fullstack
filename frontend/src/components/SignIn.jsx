@@ -11,6 +11,7 @@ const SignIn = () => {
     e.preventDefault();
 
     try {
+      console.log("Submitting signin with:", { email: Email, password });
       const res = await fetch(
         `${import.meta.env.REACT_APP_BACKEND_URL}/api/signin`,
         {
@@ -22,7 +23,9 @@ const SignIn = () => {
         }
       );
 
+      console.log("Response status:", res.status);
       const data = await res.json();
+      console.log("Response data:", data);
 
       if (data.success) {
         alert(data.message);
@@ -34,6 +37,7 @@ const SignIn = () => {
         alert(data.message || "Sign in failed");
       }
     } catch (error) {
+      console.error("Signin error:", error);
       alert("Network error: " + error.message);
     }
   };

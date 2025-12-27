@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import dotenv from "dotenv";
+dotenv.config();
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const SignUp = () => {
     e.preventDefault();
 
     try {
+      console.log("Submitting signup with:", { name, email, number, password });
       const res = await fetch(
         `${import.meta.env.REACT_APP_BACKEND_URL}/api/register`,
         {
@@ -25,7 +28,9 @@ const SignUp = () => {
         }
       );
 
+      console.log("Response status:", res.status);
       const data = await res.json();
+      console.log("Response data:", data);
 
       if (data.success) {
         alert(data.message);
@@ -38,6 +43,7 @@ const SignUp = () => {
         alert(data.message || "Registration failed");
       }
     } catch (error) {
+      console.error("Signup error:", error);
       alert("Network error: " + error.message);
     }
   };
