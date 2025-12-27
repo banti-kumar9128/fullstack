@@ -14,7 +14,7 @@ const SignUp = () => {
     e.preventDefault();
 
     const res = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/api/register`,
+      `${import.meta.env.REACT_APP_BACKEND_URL}/api/register`,
       {
         method: "POST",
         headers: {

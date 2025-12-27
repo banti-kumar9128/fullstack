@@ -9,13 +9,16 @@ const SignIn = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/signin`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: Email, password }),
-    });
+    const res = await fetch(
+      `${import.meta.env.REACT_APP_BACKEND_URL}/api/signin`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: Email, password }),
+      }
+    );
 
     const data = await res.json();
     alert(data.message);
