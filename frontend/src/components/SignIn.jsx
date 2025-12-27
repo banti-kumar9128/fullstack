@@ -33,6 +33,10 @@ const SignIn = () => {
     } catch (error) {
       console.error("Signin error:", error);
       alert("Network error: " + (error.response?.data?.message || error.message));
+    }
+  };
+
+  useEffect(() => {
     let data = localStorage.getItem("userData");
     if (data) {
       console.log("User data found:", JSON.parse(data));
