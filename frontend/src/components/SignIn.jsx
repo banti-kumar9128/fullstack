@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
 const SignIn = () => {
   const navigate = useNavigate();
   const [Email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handlesubmit = async (e) => {
-    
     e.preventDefault();
-    const res = await fetch("http://localhost:3800/api/signin", {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -64,19 +62,17 @@ const SignIn = () => {
             className="border-r-black outline-1 rounded-sm px-2 h-10 "
           />
           <span className="flex ">
-          <button
-            type="submit"
-            className="mt-4  text-white py-2 px-4 rounded hover:bg-blue-600 cursor-pointer h-10 w-20 bg-blue-500"
-          >
-            SignIn
-          </button>
-          <p className=" mt-2 p-2">if you don't have account please </p>
+            <button
+              type="submit"
+              className="mt-4  text-white py-2 px-4 rounded hover:bg-blue-600 cursor-pointer h-10 w-20 bg-blue-500"
+            >
+              SignIn
+            </button>
+            <p className=" mt-2 p-2">if you don't have account please </p>
 
-
-<Link to="/signup" className="mt-2 p-2 underline">
-  SignUp
-</Link>
-
+            <Link to="/signup" className="mt-2 p-2 underline">
+              SignUp
+            </Link>
           </span>
         </form>
       </div>
