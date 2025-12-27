@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -12,38 +13,26 @@ const SignIn = () => {
 
     try {
       console.log("Submitting signin with:", { email: Email, password });
-      const res = await fetch(
+      const response = await axios.post(
         `${import.meta.env.REACT_APP_BACKEND_URL}/api/signin`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: Email, password }),
-        }
+        { email: Email, password }
       );
 
-      console.log("Response status:", res.status);
-      const data = await res.json();
-      console.log("Response data:", data);
+      console.log("Response status:", response.status);
+      console.log("Response data:", response.data);
 
-      if (data.success) {
-        alert(data.message);
+      if (response.data.success) {
+        alert(response.data.message);
         navigate("/");
-        localStorage.setItem("userData", JSON.stringify(data.user));
+        localStorage.setItem("userData", JSON.stringify(response.data.user));
         setEmail("");
         setPassword("");
       } else {
-        alert(data.message || "Sign in failed");
+        alert(response.data.message || "Sign in failed");
       }
     } catch (error) {
       console.error("Signin error:", error);
-      alert("Network error: " + error.message);
-    }
-  };
-
-  useEffect(() => {
-    // Any side effects or subscriptions can be handled here
+      alert("Network error: " + (error.response?.data?.message || error.message));
     let data = localStorage.getItem("userData");
     if (data) {
       console.log("User data found:", JSON.parse(data));

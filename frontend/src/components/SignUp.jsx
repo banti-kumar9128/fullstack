@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -15,34 +17,29 @@ const SignUp = () => {
 
     try {
       console.log("Submitting signup with:", { name, email, number, password });
-      const res = await fetch(
+      const response = await axios.post(
         `${import.meta.env.REACT_APP_BACKEND_URL}/api/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, email, number, password }),
-        }
+        { name, email, number, password }
       );
 
-      console.log("Response status:", res.status);
-      const data = await res.json();
-      console.log("Response data:", data);
+      console.log("Response status:", response.status);
+      console.log("Response data:", response.data);
 
-      if (data.success) {
-        alert(data.message);
+      if (response.data.success) {
+        alert(response.data.message);
         navigate("/");
         setName("");
         setEmail("");
         setNumber("");
         setPassword("");
       } else {
-        alert(data.message || "Registration failed");
+        alert(response.data.message || "Registration failed");
       }
     } catch (error) {
       console.error("Signup error:", error);
-      alert("Network error: " + error.message);
+      alert(
+        "Network error: " + (error.response?.data?.message || error.message)
+      );
     }
   };
 
