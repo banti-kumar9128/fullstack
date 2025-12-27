@@ -9,24 +9,33 @@ const SignIn = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(
-      `${import.meta.env.REACT_APP_BACKEND_URL}/api/signin`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: Email, password }),
-      }
-    );
 
-    const data = await res.json();
-    alert(data.message);
-    navigate("/");
-    localStorage.setItem("userData", JSON.stringify(data.user));
-    console.log({ Email, password });
-    setEmail("");
-    setPassword("");
+    try {
+      const res = await fetch(
+        `${import.meta.env.REACT_APP_BACKEND_URL}/api/signin`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: Email, password }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        alert(data.message);
+        navigate("/");
+        localStorage.setItem("userData", JSON.stringify(data.user));
+        setEmail("");
+        setPassword("");
+      } else {
+        alert(data.message || "Sign in failed");
+      }
+    } catch (error) {
+      alert("Network error: " + error.message);
+    }
   };
 
   useEffect(() => {

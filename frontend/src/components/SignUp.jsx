@@ -13,25 +13,33 @@ const SignUp = () => {
   const handlesubmit = async (e) => {
     e.preventDefault();
 
-    const res = await fetch(
-      `${import.meta.env.REACT_APP_BACKEND_URL}/api/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, email, number, password }),
-      }
-    );
+    try {
+      const res = await fetch(
+        `${import.meta.env.REACT_APP_BACKEND_URL}/api/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, email, number, password }),
+        }
+      );
 
-    const data = await res.json();
-    alert(data.message);
-    navigate("/");
-    console.log({ name, email, number, password });
-    setName("");
-    setEmail("");
-    setNumber("");
-    setPassword("");
+      const data = await res.json();
+
+      if (data.success) {
+        alert(data.message);
+        navigate("/");
+        setName("");
+        setEmail("");
+        setNumber("");
+        setPassword("");
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } catch (error) {
+      alert("Network error: " + error.message);
+    }
   };
 
   return (
