@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import dotenv from "dotenv";
-dotenv.config();
 
 const SignUp = () => {
   const navigate = useNavigate();
