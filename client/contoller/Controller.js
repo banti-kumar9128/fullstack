@@ -61,6 +61,7 @@ export const register = async (req, res) => {
 // 🔹 Signin Controller
  export const signin = async (req, res) => {
   try {
+    console.log("Signin request received:", req.body);
     const { email, password } = req.body;
 
     // Check if user exists
