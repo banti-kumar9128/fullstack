@@ -13,10 +13,13 @@ const SignIn = () => {
 
     try {
       console.log("Submitting signin with:", { email: Email, password });
-      const response = await axios.post("/api/signin", {
-        email: Email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/signin`,
+        {
+          email: Email,
+          password,
+        }
+      );
 
       console.log("Response status:", response.status);
       console.log("Response data:", response.data);

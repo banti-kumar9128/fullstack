@@ -16,12 +16,15 @@ const SignUp = () => {
 
     try {
       console.log("Submitting signup with:", { name, email, number, password });
-      const response = await axios.post("/api/register", {
-        name,
-        email,
-        number,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/register`,
+        {
+          name,
+          email,
+          number,
+          password,
+        }
+      );
 
       console.log("Response status:", response.status);
       console.log("Response data:", response.data);
