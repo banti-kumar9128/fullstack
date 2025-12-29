@@ -14,12 +14,12 @@ export const authsignup = async(req ,res ,next)=>{
       }
 
       const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
-      if(email!==emailRegex){
+      if(!emailRegex.test(email)){
         return res.status(400).json({message:"please enter valid email "})
       }
       
       const phoneRegex = /^[6-9]\d{9}$/
-      if(!phoneRegex.test(phone)){
+      if(!phoneRegex.test(number)){
         return res.status(400).json({message:"invalid phone number"})
       }
 
