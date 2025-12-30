@@ -1,26 +1,22 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import router from './routes/Route.js'
-import { connecDB } from "./db/db.js"
-import cors from "cors"
+import express from "express";
+import dotenv from "dotenv";
+import router from "../routes/Route.js";
+import { connecDB } from "../db/db.js";
+import cors from "cors";
 
+dotenv.config();
 
-const app =express()
-dotenv.config()
-app.use(cors())
+const app = express();
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
-const PORT=process.env.PORT ||4500
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use("/api",router)
+app.use("/api", router);
 
+// connect DB
+connecDB();
 
-connecDB()
-
-app.listen(PORT, (req, res) => {
-    console.log(`server is running on http://localhost:${PORT}`)
-})
-
-export default app
-
+// ❌ REMOVE app.listen()
+// ✅ EXPORT app
+export default app;
